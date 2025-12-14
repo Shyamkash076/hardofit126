@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HARDOFIT - Master Your Craft</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .skew-tag { transform: skewX(-10deg); }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ea580c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c2410c; 
+        }
+    </style>
+</head>
+<body class="bg-black font-sans text-white selection:bg-orange-500 selection:text-white overflow-x-hidden">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-24 right-5 z-[60] bg-zinc-800 text-white px-6 py-4 rounded-sm shadow-2xl border-l-4 border-orange-500 hidden transition-all duration-300 transform translate-x-full flex items-center gap-3">
+        <i data-lucide="check-circle" class="text-green-500"></i>
+        <div>
+            <h4 class="font-bold text-sm uppercase">Success</h4>
+            <span id="toast-message" class="text-gray-300 text-xs">Item added to cart!</span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <button id="menu-btn" class="lg:hidden text-white hover:text-orange-500 transition-colors">
+                    <i data-lucide="menu"></i>
+                </button>
+                <a href="#" class="text-2xl font-black tracking-tighter text-white flex items-center italic">
+                    HARDOFIT<span class="text-orange-500">.</span>
+                </a>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-200 uppercase tracking-wider">
+                <a href="#" class="hover:text-orange-500 transition-colors">Tools</a>
+                <a href="#" class="hover:text-orange-500 transition-colors">Industrial</a>
+                <a href="#" class="hover:text-orange-500 transition-colors">Safety</a>
+                <a href="#" class="hover:text-orange-500 transition-colors">Support</a>
+            </div>
+
+            <div class="flex items-center gap-5 text-white">
+                <div class="relative hidden sm:block group">
+                    <input type="text" placeholder="Search tools..." class="bg-zinc-900/80 rounded-sm py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 w-48 lg:w-64 border border-zinc-700 focus:border-orange-500 text-white transition-all">
+                    <i data-lucide="search" class="absolute left-3 top-2.5 text-gray-400 w-4 h-4 group-focus-within:text-orange-500 transition-colors"></i>
+                </div>
+                <button class="hover:text-orange-500 transition-colors"><i data-lucide="user" class="w-5 h-5"></i></button>
+                <button class="relative hover:text-orange-500 transition-colors group">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-orange-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden group-hover:bg-white group-hover:text-orange-600 transition-colors">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-zinc-900 border-t border-zinc-800 p-4 flex flex-col gap-4 text-white shadow-xl">
+            <a href="#" class="py-2 border-b border-zinc-800 hover:text-orange-500">Tools</a>
+            <a href="#" class="py-2 border-b border-zinc-800 hover:text-orange-500">Industrial</a>
+            <a href="#" class="py-2 border-b border-zinc-800 hover:text-orange-500">Safety</a>
+            <a href="#" class="py-2 hover:text-orange-500">Support</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative h-[500px] md:h-[650px] w-full bg-zinc-900 overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-zinc-900/80 to-black z-10"></div>
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1600" alt="Hero bg" class="w-full h-full object-cover opacity-50" />
+        </div>
+        
+        <div class="relative z-20 text-center text-white px-4 max-w-4xl mx-auto mt-16">
+            <h2 class="text-orange-500 font-bold tracking-widest text-sm md:text-xl mb-4 uppercase animate-pulse">FIT for the Future</h2>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-none uppercase italic transform -skew-x-6">
+                Master Your <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">CRAFT</span>
+            </h1>
+            <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto font-light">Premium hardware and industrial tools designed for professionals who demand excellence.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-10 rounded-sm transition-all transform hover:scale-105 shadow-lg shadow-orange-600/20 uppercase tracking-widest text-sm">
+                    Shop Tools
+                </button>
+                <a href="https://drive.google.com/file/d/1d-GnGD6SYri0frMZZlXZpcpJ_10GhPz_/view?usp=sharing" target="_blank" class="bg-transparent border border-zinc-600 hover:border-white hover:bg-white hover:text-black text-white font-bold py-4 px-10 rounded-sm transition-all uppercase tracking-widest text-sm inline-block text-center">
+    View Catalog
+</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="py-16 bg-black text-white border-b border-zinc-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-black mb-10 uppercase tracking-wide flex items-center gap-2">
+                <span class="w-2 h-8 bg-orange-600 inline-block skew-tag"></span> 
+                Browse Categories
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="categories-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-16">
+        <!-- Section 1 -->
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter">Top Hardware</h2>
+                <div class="h-1 w-20 bg-orange-600 mt-2"></div>
+            </div>
+            <a href="#" class="text-gray-400 hover:text-orange-500 font-bold uppercase text-xs tracking-widest transition-colors flex items-center gap-1 group">
+                View All <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+        
+        <div id="products-grid-1" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Injected via JS -->
+        </div>
+
+        <!-- Featured Banner -->
+        <div class="my-24 bg-zinc-900 rounded-sm p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between border border-zinc-800 group">
+            <div class="z-10 md:w-1/2">
+                <div class="inline-block bg-orange-600 text-white text-xs font-bold px-3 py-1 mb-4 uppercase tracking-widest skew-tag">Limited Edition</div>
+                <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase italic">Titanium Series</h2>
+                <p class="text-gray-400 mb-8 font-mono text-sm leading-relaxed max-w-md">Forged in fire, built for precision. The new Titanium Hammer series is lighter, stronger, and built to last a lifetime of heavy abuse.</p>
+                <button class="bg-white text-black font-bold py-3 px-8 rounded-sm hover:bg-gray-200 transition-colors uppercase tracking-wider text-sm">
+                    Shop Collection
+                </button>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center z-10 relative">
+                <div class="absolute inset-0 bg-orange-500/20 blur-3xl rounded-full"></div>
+                <img src="https://welcome-cyan-ymbvnyorea-nwbsyicf13.edgeone.dev/Screenshot%202025-12-14%20at%207.27.07%E2%80%AFPM.png" alt="New Launch" class="shadow-2xl group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 max-w-xs object-cover rounded-sm relative z-10" />
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-600/10 to-transparent rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter">New Arrivals</h2>
+                <div class="h-1 w-20 bg-orange-600 mt-2"></div>
+            </div>
+            <a href="#" class="text-gray-400 hover:text-orange-500 font-bold uppercase text-xs tracking-widest transition-colors flex items-center gap-1 group">
+                View All <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+        
+        <div id="products-grid-2" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Injected via JS -->
+        </div>
+    </main>
+
+    <!-- Features -->
+    <div class="bg-zinc-900 py-16 border-t border-zinc-800">
+        <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+            <div class="p-6 border border-zinc-800 rounded-sm hover:border-orange-600/50 hover:bg-zinc-800/50 transition-all group">
+                <div class="mb-4 text-orange-500 flex justify-center"><i data-lucide="shield-check" class="w-8 h-8 group-hover:scale-110 transition-transform"></i></div>
+                <h3 class="text-white font-black text-lg mb-1 uppercase">18 MONTHS</h3>
+                <p class="text-xs text-gray-400 font-mono uppercase">Warranty</p>
+            </div>
+            <div class="p-6 border border-zinc-800 rounded-sm hover:border-orange-600/50 hover:bg-zinc-800/50 transition-all group">
+                <div class="mb-4 text-orange-500 flex justify-center"><i data-lucide="refresh-cw" class="w-8 h-8 group-hover:scale-110 transition-transform"></i></div>
+                <h3 class="text-white font-black text-lg mb-1 uppercase">7 Days</h3>
+                <p class="text-xs text-gray-400 font-mono uppercase">Easy Return</p>
+            </div>
+            <div class="p-6 border border-zinc-800 rounded-sm hover:border-orange-600/50 hover:bg-zinc-800/50 transition-all group">
+                <div class="mb-4 text-orange-500 flex justify-center"><i data-lucide="truck" class="w-8 h-8 group-hover:scale-110 transition-transform"></i></div>
+                <h3 class="text-white font-black text-lg mb-1 uppercase">Fast</h3>
+                <p class="text-xs text-gray-400 font-mono uppercase">Shipping</p>
+            </div>
+            <div class="p-6 border border-zinc-800 rounded-sm hover:border-orange-600/50 hover:bg-zinc-800/50 transition-all group">
+                <div class="mb-4 text-orange-500 flex justify-center"><i data-lucide="lock" class="w-8 h-8 group-hover:scale-110 transition-transform"></i></div>
+                <h3 class="text-white font-black text-lg mb-1 uppercase">Secure</h3>
+                <p class="text-xs text-gray-400 font-mono uppercase">Payment</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 pt-20 pb-10 border-t border-zinc-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <h2 class="text-white text-3xl font-black italic mb-6">HARD<span class="text-orange-500">OFIT</span>.</h2>
+                    <p class="text-sm mb-6 leading-relaxed">Equipping builders, creators, and professionals with the highest quality tools since 2024. Built for those who build the world.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email for newsletter" class="bg-zinc-900 rounded-sm px-4 py-3 w-full text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 border border-zinc-800 text-white placeholder-gray-600">
+                        <button class="bg-orange-600 hover:bg-orange-700 transition-colors rounded-sm px-4 py-2 text-white font-bold"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Products</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Power Drills</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Hand Tools</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Safety Equipment</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Measuring Tools</li>
+                    </ul>
+                </div>
+        
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Support</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Track Order</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Warranty Claim</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Service Centers</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Contact Us</li>
+                    </ul>
+                </div>
+        
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">About HARDOFIT</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Careers</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Privacy Policy</li>
+                        <li class="hover:text-orange-500 cursor-pointer transition-colors">Terms of Service</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs text-gray-500">© 2024 HARDOFIT Industries. All Rights Reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-sm bg-zinc-900 hover:bg-blue-600 hover:text-white cursor-pointer transition-all flex items-center justify-center text-gray-400">
+                        <i data-lucide="facebook" width="16" height="16"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-sm bg-zinc-900 hover:bg-pink-600 hover:text-white cursor-pointer transition-all flex items-center justify-center text-gray-400">
+                        <i data-lucide="instagram" width="16" height="16"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-sm bg-zinc-900 hover:bg-blue-400 hover:text-white cursor-pointer transition-all flex items-center justify-center text-gray-400">
+                        <i data-lucide="twitter" width="16" height="16"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Definitions
+        const products = [
+            // Updated image to a reliable Unsplash image for a drill
+            { id: 1, name: "PULL HANDLE PH- 2018 6m", category: "Power Tools", price: 1499, originalPrice: 2400, rating: 4.8, reviews: 845, tag: "Bestseller", image: " https://rising-turquoise-bdffgsdyac-ic7oj7dnhz.edgeone.dev/Screenshot%202025-12-14%20at%206.47.43%E2%80%AFPM.png" },
+            { id: 2, name: "MORTICE SS KMH - 2010", category: "Hand Tools", price: 2199, originalPrice: 2650, rating: 4.9, reviews: 1200, tag: "Heavy Duty", image: "https://rising-turquoise-bdffgsdyac-ic7oj7dnhz.edgeone.dev/Screenshot%202025-12-14%20at%206.51.49%E2%80%AFPM.png" },
+            { id: 3, name: "MORTICE SS KMH - 2011", category: "Measurement", price: 2299, originalPrice: 3200, rating: 4.7, reviews: 450, tag: "Precision", image: "https://rising-turquoise-bdffgsdyac-ic7oj7dnhz.edgeone.dev/Screenshot%202025-12-14%20at%206.52.08%E2%80%AFPM.png" },
+            { id: 4, name: "MORTICE  KMH - MIRCHI", category: "Power Tools", price: 1599, originalPrice: 2400, rating: 4.6, reviews: 620, tag: "Sale", image: "https://rising-turquoise-bdffgsdyac-ic7oj7dnhz.edgeone.dev/Screenshot%202025-12-14%20at%206.55.32%E2%80%AFPM.png" },
+            { id: 5, name: "SS PULL HANDLE LOCK SET PH - 2020 6M", category: "Safety Gear", price: 2499, originalPrice: 3300, rating: 4.8, reviews: 210, tag: "Essential", image: "https://missing-harlequin-eox43zsegy-ptk2xh0wne.edgeone.dev/Screenshot%202025-12-14%20at%207.10.39%E2%80%AFPM.png" },
+            { id: 6, name: "HANDLE PH - 2018 6M", category: "Hand Tools", price: 2599, originalPrice: 3500, rating: 4.5, reviews: 1500, tag: "Classic", image: "https://missing-harlequin-eox43zsegy-ptk2xh0wne.edgeone.dev/Screenshot%202025-12-14%20at%207.11.12%E2%80%AFPM.png" },
+            { id: 7, name: "HANDLE PH - 2011 6M", category: "Power Tools", price: 2299, originalPrice: 3500, rating: 4.9, reviews: 980, tag: "Portable", image: "https://missing-harlequin-eox43zsegy-ptk2xh0wne.edgeone.dev/Screenshot%202025-12-14%20at%207.11.43%E2%80%AFPM.png" },
+            { id: 8, name: "HANDLE PH - 1002 6M", category: "Storage", price: 1999, originalPrice: 2399, rating: 4.7, reviews: 330, tag: "Premium", image: "https://missing-harlequin-eox43zsegy-ptk2xh0wne.edgeone.dev/Screenshot%202025-12-14%20at%207.12.48%E2%80%AFPM.png" }
+        ];
+
+        const categories = [
+            { name: "Power Tools", icon: "zap" },
+            { name: "Hand Tools", icon: "hammer" },
+            { name: "Safety Gear", icon: "shield" },
+            { name: "Measurement", icon: "ruler" },
+            { name: "Construction", icon: "hard-hat" },
+        ];
+
+        // State Logic
+        let cartCount = 0;
+        let isMenuOpen = false;
+
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBtn = document.getElementById('menu-btn');
+        const cartCountBadge = document.getElementById('cart-count');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        // Functions
+        function init() {
+            renderCategories();
+            renderProducts(products.slice(0, 4), 'products-grid-1');
+            renderProducts(products.slice(4, 8), 'products-grid-2');
+            
+            // Re-scan DOM for icons after injection
+            lucide.createIcons();
+            
+            // Event Listeners
+            window.addEventListener('scroll', handleScroll);
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+        }
+
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-4');
+                navbar.classList.add('bg-zinc-900', 'shadow-lg', 'py-3');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-4');
+                navbar.classList.remove('bg-zinc-900', 'shadow-lg', 'py-3');
+            }
+        }
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuBtn.innerHTML = '<i data-lucide="x"></i>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        function addToCart(productName) {
+            cartCount++;
+            cartCountBadge.textContent = cartCount;
+            cartCountBadge.classList.remove('hidden');
+            cartCountBadge.classList.add('animate-ping');
+            
+            setTimeout(() => {
+                cartCountBadge.classList.remove('animate-ping');
+            }, 500);
+            
+            // Show Toast
+            toastMessage.textContent = `${productName} added to cart!`;
+            toast.classList.remove('hidden', 'translate-x-full');
+            toast.classList.add('translate-x-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0');
+                toast.classList.add('translate-x-full');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = categories.map(cat => `
+                <div class="group cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-sm bg-zinc-900 flex items-center justify-center mb-3 group-hover:bg-orange-600 transition-all duration-300 border border-zinc-800 group-hover:border-orange-500 shadow-lg group-hover:shadow-orange-600/20 group-hover:-translate-y-1">
+                        <span class="text-gray-400 group-hover:text-white transition-colors">
+                            <i data-lucide="${cat.icon}" width="32" height="32" stroke-width="1.5"></i>
+                        </span>
+                    </div>
+                    <span class="font-bold text-xs group-hover:text-orange-500 transition-colors uppercase tracking-wider text-gray-400">${cat.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderProducts(productsList, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = productsList.map(product => {
+                const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+                return `
+                <div class="bg-zinc-900 rounded-sm overflow-hidden hover:shadow-2xl hover:shadow-orange-900/10 transition-all duration-500 border border-zinc-800 group relative hover:border-zinc-700">
+                    <div class="relative h-64 overflow-hidden bg-zinc-800 p-4">
+                        <span class="absolute top-0 left-0 bg-orange-600 text-white text-[10px] font-black px-3 py-1 z-10 uppercase tracking-widest skew-tag shadow-lg">
+                            ${product.tag}
+                        </span>
+                        <button class="absolute top-2 right-2 p-2 bg-black/40 rounded-full text-white hover:bg-orange-500 transition-colors z-10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
+                            <i data-lucide="heart" width="16" height="16"></i>
+                        </button>
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 mix-blend-normal" />
+                        <div class="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/90 to-transparent">
+                            <div class="text-yellow-400 text-xs font-bold px-2 py-1 flex items-center gap-1">
+                                <i data-lucide="star" fill="#facc15" stroke="none" width="12" height="12"></i> 
+                                ${product.rating} <span class="text-gray-400 font-normal">(${product.reviews})</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5 bg-zinc-900 border-t border-zinc-800">
+                        <h3 class="text-white font-bold text-lg mb-1 truncate uppercase tracking-tight group-hover:text-orange-500 transition-colors">${product.name}</h3>
+                        <p class="text-gray-500 text-xs mb-4 font-mono uppercase tracking-wide">${product.category}</p>
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="text-white font-black text-xl">₹${product.price}</span>
+                            <span class="text-gray-600 text-sm line-through">₹${product.originalPrice}</span>
+                            <span class="text-green-500 text-[10px] font-bold border border-green-500/30 bg-green-500/10 px-1.5 py-0.5 rounded-sm">
+                                -${discount}%
+                            </span>
+                        </div>
+                        <button 
+                            onclick="addToCart('${product.name}')"
+                            class="w-full bg-zinc-800 hover:bg-white hover:text-black text-white font-bold py-3 rounded-sm transition-all text-xs uppercase tracking-widest border border-zinc-700 hover:border-white group-hover:bg-orange-600 group-hover:border-orange-600 group-hover:text-white"
+                        >
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Run Init on Load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
